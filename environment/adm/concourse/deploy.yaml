@@ -6,102 +6,102 @@ metadata:
   labels:
     team: DevOps
     istio-injection: enabled
-# ---
-# apiVersion: source.toolkit.fluxcd.io/v1beta1
-# kind: HelmRepository
-# metadata:
-#   name: concourse
-#   namespace: flux-system
-# spec:
-#   interval: 1m
-#   url: https://concourse-charts.storage.googleapis.com/
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2beta1
-# kind: HelmRelease
-# metadata:
-#   name: concourse
-#   namespace: concourse
-# spec:
-#   chart:
-#     spec:
-#       chart: concourse
-#       sourceRef:
-#         kind: HelmRepository
-#         name: concourse
-#         namespace: flux-system
-#       version: 16.1.16
-#   interval: 1m0s
-#   values:
-#     fullnameOverride: concourse
-#     concourse:
-#       web:
-#         enabled: true
-#         auth:
-#           mainTeam:
-#             localUser: admin 
-#         externalUrl: http://concourse-ci.k8s.stg.lab.internal:8080
-#         bindPort: 80
-#         tls:
-#           enabled: false
-#           bindPort: 443
-#       kubernetes:
-#         keepNamespace: false
-#         createTeamNamespaces: false
-#       worker:
-#         ephemeral: true
-#         autoscaling:
-#           # maxReplicas is required to for auto scaling
-#           # see the following example for scaling on CPU_Utilization and on
-#           # a custom metric 'concourse_workers_containers'
-#           # for this to work you need to configure the metric eg. with prometheus adapter
-#           maxReplicas: 5
-#           minReplicas: 1
-#           behavior:
-#             scaleDown:
-#               stabilizationWindowSeconds: 1200
-#               selectPolicy: Min
-#               policies:
-#                 - type: Percent
-#                   value: 10
-#                   periodSeconds: 300
-#             scaleUp:
-#               stabilizationWindowSeconds: 60
-#           builtInMetrics:
-#             - type: Resource
-#               resource:
-#                 name: cpu
-#                 target:
-#                   type: Utilization
-#                   averageUtilization: 80
-#           customMetrics:
-#             - type: Pods
-#               pods:
-#                 metric:
-#                   name: concourse_workers_containers
-#                 target:
-#                   type: AverageValue
-#                   averageValue: 180
-#         baggageclaim:
-#           driver: btrfs
-#     secrets:
-#       create: true
-#     worker:
-#       enabled: true
-#       kind: Deployment
-# ---
-# apiVersion: networking.istio.io/v1alpha3
-# kind: VirtualService
-# metadata:
-#   name: concourse-internal
-#   namespace: concourse
-# spec:
-#   hosts:
-#   - "concourse-ci.k8s.stg.lab.internal"
-#   gateways:
-#   - istio-system/gateway-internal
-#   http:
-#   - route:
-#     - destination:
-#         host: concourse-web
-#         port:
-#           number: 80
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: concourse
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://concourse-charts.storage.googleapis.com/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: concourse
+  namespace: concourse
+spec:
+  chart:
+    spec:
+      chart: concourse
+      sourceRef:
+        kind: HelmRepository
+        name: concourse
+        namespace: flux-system
+      version: 16.1.16
+  interval: 1m0s
+  values:
+    fullnameOverride: concourse
+    concourse:
+      web:
+        enabled: true
+        auth:
+          mainTeam:
+            localUser: admin 
+        externalUrl: http://concourse-ci.k8s.stg.lab.internal:8080
+        bindPort: 80
+        tls:
+          enabled: false
+          bindPort: 443
+      kubernetes:
+        keepNamespace: false
+        createTeamNamespaces: false
+      worker:
+        ephemeral: true
+        autoscaling:
+          # maxReplicas is required to for auto scaling
+          # see the following example for scaling on CPU_Utilization and on
+          # a custom metric 'concourse_workers_containers'
+          # for this to work you need to configure the metric eg. with prometheus adapter
+          maxReplicas: 5
+          minReplicas: 1
+          behavior:
+            scaleDown:
+              stabilizationWindowSeconds: 1200
+              selectPolicy: Min
+              policies:
+                - type: Percent
+                  value: 10
+                  periodSeconds: 300
+            scaleUp:
+              stabilizationWindowSeconds: 60
+          builtInMetrics:
+            - type: Resource
+              resource:
+                name: cpu
+                target:
+                  type: Utilization
+                  averageUtilization: 80
+          customMetrics:
+            - type: Pods
+              pods:
+                metric:
+                  name: concourse_workers_containers
+                target:
+                  type: AverageValue
+                  averageValue: 180
+        baggageclaim:
+          driver: btrfs
+    secrets:
+      create: false
+    worker:
+      enabled: true
+      kind: Deployment
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: concourse-internal
+  namespace: concourse
+spec:
+  hosts:
+  - "concourse-ci.k8s.stg.lab.internal"
+  gateways:
+  - istio-system/gateway-internal
+  http:
+  - route:
+    - destination:
+        host: concourse-web
+        port:
+          number: 80
