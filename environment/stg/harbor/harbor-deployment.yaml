@@ -26,7 +26,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi
   storageClassName: rook-cephfs
 # ---
 # apiVersion: helm.toolkit.fluxcd.io/v2beta1
