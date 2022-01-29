@@ -7,20 +7,11 @@ metadata:
     team: DevOps
     istio-injection: enable
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
-kind: HelmRepository
-metadata:
-  name: harbor
-  namespace: harbor
-spec:
-  interval: 1m
-  url: https://helm.goharbor.io
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: cephfs-big-pvc
-  namespace: kube-system
+  name: cephfs-harbor-registry
+  namespace: harbor
 spec:
   accessModes:
     - ReadWriteMany
@@ -32,28 +23,37 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: cephfs-medium-pvc
-  namespace: kube-system
+  name: cephfs-harbor-chartmuseum
+  namespace: harbor
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
   storageClassName: rook-cephfs
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: cephfs-small-pvc
-  namespace: kube-system
+  name: cephfs-harbor-jobservice
+  namespace: harbor
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi
   storageClassName: rook-cephfs
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: harbor
+  namespace: harbor
+spec:
+  interval: 1m
+  url: https://helm.goharbor.io
 # ---
 # apiVersion: helm.toolkit.fluxcd.io/v2beta1
 # kind: HelmRelease
