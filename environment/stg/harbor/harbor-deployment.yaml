@@ -51,11 +51,11 @@ spec:
     persistence:
       persistentVolumeClaim:
         registry:
-          storageClass: ceph-filesystem
+          storageClass: rook-chephfs
           accessMode: ReadWriteMany
         chartmuseum:
-          storageClass: ceph-filesystem
+          storageClass: rook-chephfs
           accessMode: ReadWriteMany
         jobservice:
-          storageClass: ceph-filesystem
+          storageClass: rook-chephfs
           accessMode: ReadWriteMany
