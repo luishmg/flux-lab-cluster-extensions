@@ -1,18 +1,24 @@
----
+#################################################################################################################
+# Create a filesystem with settings for a test environment where only a single OSD is required.
+#  kubectl create -f filesystem-test.yaml
+#################################################################################################################
+
 apiVersion: ceph.rook.io/v1
 kind: CephFilesystem
 metadata:
   name: cephfs
-  namespace: rook-ceph
+  namespace: rook-ceph # namespace:cluster
 spec:
   metadataPool:
     replicated:
-      size: 3
+      size: 1
+      requireSafeReplicaSize: false
   dataPools:
-    - name: replicated
+    - failureDomain: osd
       replicated:
-        size: 3
-  preserveFilesystemOnDelete: true
+        size: 1
+        requireSafeReplicaSize: false
+  preserveFilesystemOnDelete: false
   metadataServer:
     activeCount: 1
     activeStandby: true
