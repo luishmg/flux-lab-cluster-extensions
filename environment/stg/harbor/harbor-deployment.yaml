@@ -15,47 +15,47 @@ metadata:
 spec:
   interval: 1m
   url: https://helm.goharbor.io
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: labsa-repo
-  namespace: harbor
-spec:
-  chart:
-    spec:
-      chart: harbor
-      sourceRef:
-        kind: HelmRepository
-        name: harbor
-      version: 1.8.1
-  interval: 1m0s
-  values:
-    portal:
-      replicas: 2
-    core:
-      replicas: 2
-    jobservice:
-      replicas: 2
-    registry:
-      replicas: 2
-    chartmuseum:
-      replicas: 2
-    clair:
-      replicas: 2
-    notary:
-      server:
-        replicas: 2
-      signer:
-        replicas: 2
-    persistence:
-      persistentVolumeClaim:
-        registry:
-          storageClass: rook-chephfs
-          accessMode: ReadWriteMany
-        chartmuseum:
-          storageClass: rook-chephfs
-          accessMode: ReadWriteMany
-        jobservice:
-          storageClass: rook-chephfs
-          accessMode: ReadWriteMany
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# kind: HelmRelease
+# metadata:
+#   name: labsa-repo
+#   namespace: harbor
+# spec:
+#   chart:
+#     spec:
+#       chart: harbor
+#       sourceRef:
+#         kind: HelmRepository
+#         name: harbor
+#       version: 1.8.1
+#   interval: 1m0s
+#   values:
+#     portal:
+#       replicas: 2
+#     core:
+#       replicas: 2
+#     jobservice:
+#       replicas: 2
+#     registry:
+#       replicas: 2
+#     chartmuseum:
+#       replicas: 2
+#     clair:
+#       replicas: 2
+#     notary:
+#       server:
+#         replicas: 2
+#       signer:
+#         replicas: 2
+#     persistence:
+#       persistentVolumeClaim:
+#         registry:
+#           storageClass: rook-chephfs
+#           accessMode: ReadWriteMany
+#         chartmuseum:
+#           storageClass: rook-chephfs
+#           accessMode: ReadWriteMany
+#         jobservice:
+#           storageClass: rook-chephfs
+#           accessMode: ReadWriteMany
