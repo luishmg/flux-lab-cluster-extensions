@@ -125,7 +125,7 @@ spec:
       type: clusterIP
       tls:
         enabled: false
-    externalURL: http://harbor.k8s.stg.lab.internal:8080
+    externalURL: http://harbor.k8s.stg.lab.internal
     # Neet to improve this with the sealed secrets and use the kustomize grabbing the value from the secrets
     harborAdminPassword: "labsasecret"
     portal:
@@ -176,8 +176,27 @@ spec:
   gateways:
   - istio-system/gateway-internal
   http:
-  - route:
+  - match:
+    - uri:
+        prefix: /
+    route:
     - destination:
         host: harbor-portal
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /api/
+    - uri:
+        prefix: /service/
+    - uri:
+        prefix: /v2
+    - uri:
+        prefix: /chartrepo/
+    - uri:
+        prefix: /c/
+    route:
+    - destination:
+        host: harbor-core
         port:
           number: 80
