@@ -200,3 +200,24 @@ spec:
         host: harbor-portal
         port:
           number: 80
+---
+# Create virtual service for the harbor notary
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: harbor-notary
+  namespace: harbor
+spec:
+  hosts:
+  - "harbor.k8s.stg.lab.internal"
+  gateways:
+  - istio-system/gateway-internal
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: harbor-notary-server
+        port:
+          number: 80
