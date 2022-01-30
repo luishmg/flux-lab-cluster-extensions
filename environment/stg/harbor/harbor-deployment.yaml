@@ -178,14 +178,6 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /
-    route:
-    - destination:
-        host: harbor-portal
-        port:
-          number: 80
-  - match:
-    - uri:
         prefix: /api/
     - uri:
         prefix: /service/
@@ -198,5 +190,13 @@ spec:
     route:
     - destination:
         host: harbor-core
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: harbor-portal
         port:
           number: 80
