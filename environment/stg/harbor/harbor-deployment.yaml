@@ -164,6 +164,6 @@ spec:
   http:
   - route:
     - destination:
-        host: charbor-portal
+        host: harbor-portal
         port:
           number: 80
