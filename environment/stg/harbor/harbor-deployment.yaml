@@ -119,6 +119,8 @@ spec:
   interval: 1m0s
   values:
     externalURL: http://harbor.k8s.stg.lab.internal
+    # Neet to improve this with the sealed secrets and use the kustomize grabbing the value from the secrets
+    harborAdminPassword: "labsasecret"
     portal:
       replicas: 2
     core:
@@ -128,9 +130,9 @@ spec:
     registry:
       replicas: 2
       # Neet to improve this with the sealed secrets and use the kustomize grabbing the value from the secrets
-      credentials:
-        username: "admin"
-        password: "labsasecret"
+      # credentials:
+      #   username: "admin"
+      #   password: "labsasecret"
     chartmuseum:
       replicas: 2
     clair:
