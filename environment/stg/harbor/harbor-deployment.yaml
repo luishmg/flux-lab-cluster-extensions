@@ -174,3 +174,21 @@ spec:
         host: harbor-portal
         port:
           number: 80
+---
+# Create virtual service for the harbor application
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: harbor-core
+  namespace: harbor
+spec:
+  hosts:
+  - "harbor-core.k8s.stg.lab.internal"
+  gateways:
+  - istio-system/gateway-internal
+  http:
+  - route:
+    - destination:
+        host: harbor-core
+        port:
+          number: 80
