@@ -1,4 +1,5 @@
 ---
+# Create the namespace to run harbor
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -7,6 +8,7 @@ metadata:
     team: DevOps
     istio-injection: enable
 ---
+# Create a file system storage for the harbor container registry
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -20,6 +22,7 @@ spec:
       storage: 10Gi
   storageClassName: rook-cephfs
 ---
+# Create a file system storage for the harbor chart registry
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -33,6 +36,7 @@ spec:
       storage: 10Gi
   storageClassName: rook-cephfs
 ---
+# Create a file system storage for the harbor jobservice
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -46,6 +50,7 @@ spec:
       storage: 10Gi
   storageClassName: rook-cephfs
 ---
+# Create a block storage for the harbor database
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -59,6 +64,7 @@ spec:
       storage: 1Gi
   storageClassName: rook-ceph-block
 ---
+# Create a block storage for the harbor redis
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -72,6 +78,7 @@ spec:
       storage: 1Gi
   storageClassName: rook-ceph-block
 ---
+# Create a block storage for the harbor trivy image scan
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -85,6 +92,7 @@ spec:
       storage: 5Gi
   storageClassName: rook-ceph-block
 ---
+# Load the helm repository inside the flux system
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
@@ -94,6 +102,7 @@ spec:
   interval: 1m
   url: https://helm.goharbor.io
 ---
+# Deploy te application with helm
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -141,6 +150,7 @@ spec:
         trivy:
           existingClaim: "rbd-harbor-trivy"
 ---
+# Create virtual service for the harbor application
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
