@@ -115,7 +115,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: harbor
-      version: 1.8.1
+      version: 1.7.5
   interval: 1m0s
   values:
     proxy:
