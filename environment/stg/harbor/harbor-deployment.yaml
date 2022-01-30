@@ -118,7 +118,9 @@ spec:
       version: 1.8.1
   interval: 1m0s
   values:
-    externalURL: http://harbor.k8s.stg.lab.internal
+    proxy:
+      httpProxy: http://harbor.k8s.stg.lab.internal:8080
+      httpsProxy: https://harbor.k8s.stg.lab.internal:8443
     # Neet to improve this with the sealed secrets and use the kustomize grabbing the value from the secrets
     harborAdminPassword: "labsasecret"
     portal:
@@ -172,23 +174,5 @@ spec:
   - route:
     - destination:
         host: harbor-portal
-        port:
-          number: 80
----
-# Create virtual service for the harbor application
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: harbor-core
-  namespace: harbor
-spec:
-  hosts:
-  - "harbor-core.k8s.stg.lab.internal"
-  gateways:
-  - istio-system/gateway-internal
-  http:
-  - route:
-    - destination:
-        host: harbor-core
         port:
           number: 80
