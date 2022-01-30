@@ -140,3 +140,20 @@ spec:
           existingClaim: "rbd-harbor-redis"
         trivy:
           existingClaim: "rbd-harbor-trivy"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: harbor-portal
+  namespace: concourse
+spec:
+  hosts:
+  - "harbor.k8s.stg.lab.internal"
+  gateways:
+  - istio-system/gateway-internal
+  http:
+  - route:
+    - destination:
+        host: charbor-portal
+        port:
+          number: 80
