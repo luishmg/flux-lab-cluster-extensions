@@ -125,9 +125,7 @@ spec:
       type: clusterIP
       tls:
         enabled: false
-    proxy:
-      httpProxy: http://harbor.k8s.stg.lab.internal:8080
-      httpsProxy: https://harbor.k8s.stg.lab.internal:8443
+    externalURL: http://harbor.k8s.stg.lab.internal
     # Neet to improve this with the sealed secrets and use the kustomize grabbing the value from the secrets
     harborAdminPassword: "labsasecret"
     portal:
