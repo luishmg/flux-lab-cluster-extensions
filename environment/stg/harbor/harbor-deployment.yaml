@@ -209,7 +209,7 @@ metadata:
   namespace: harbor
 spec:
   hosts:
-  - "harbor.k8s.stg.lab.internal"
+  - "harbor-notary.k8s.stg.lab.internal"
   gateways:
   - istio-system/gateway-internal
   http:
