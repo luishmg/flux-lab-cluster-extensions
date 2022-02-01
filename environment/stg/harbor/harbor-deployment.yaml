@@ -124,7 +124,7 @@ spec:
       # in the corresponding section
       type: clusterIP
       tls:
-        enabled: false
+        enabled: true
     externalURL: http://harbor.k8s.stg.lab.internal
     # Neet to improve this with the sealed secrets and use the kustomize grabbing the value from the secrets
     harborAdminPassword: "labsasecret"
