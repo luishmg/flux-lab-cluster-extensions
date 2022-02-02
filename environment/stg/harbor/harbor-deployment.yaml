@@ -118,13 +118,6 @@ spec:
       version: 1.7.5
   interval: 1m0s
   values:
-    expose:
-      # Set the way how to expose the service. Set the type as "ingress",
-      # "clusterIP", "nodePort" or "loadBalancer" and fill the information
-      # in the corresponding section
-      type: clusterIP
-      tls:
-        enabled: true
     externalURL: http://harbor.k8s.stg.lab.internal
     # Neet to improve this with the sealed secrets and use the kustomize grabbing the value from the secrets
     harborAdminPassword: "labsasecret"
