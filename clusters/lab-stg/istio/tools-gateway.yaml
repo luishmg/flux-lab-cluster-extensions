@@ -1,0 +1,26 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gateway-tools-internal
+  namespace: istio-system
+spec:
+  selector:
+    app: istio-ingressgateway-internal
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "harbor.k8s.stg.lab.internal"
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: gateway-cert-tools-internal
+    hosts:
+    - "harbor.k8s.stg.lab.internal"

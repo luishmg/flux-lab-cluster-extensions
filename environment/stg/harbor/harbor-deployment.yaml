@@ -174,7 +174,7 @@ spec:
   hosts:
   - "harbor.k8s.stg.lab.internal"
   gateways:
-  - istio-system/gateway-internal
+  - istio-system/gateway-tools-internal
   http:
   - match:
     - uri:
