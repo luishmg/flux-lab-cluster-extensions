@@ -1,0 +1,17 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: push-secret
+  namespace: shipwright-build
+spec:
+  encryptedData:
+    .dockerconfigjson: AgAkHN8gbUvrgN9TH3Oel3lDkGHk2XgpDHXx41uUteKe8hHR7FD0v2BaV8zMnd4Hu7s0l2dL5mFaat+VlM9a+DDc+50Ei0hmFCFc0RnMNtDCMr4Wsy1NpBmQYSk3nMXLMYj3tdk+1ob0UuJ/zaU46sE/pcDRN/bajkF2mhA+SWFZ3W+W0Sx6XgU+1inPRB7CDP06lg3eZ7R7ZmGndkvT+YgOhggwevo9h898TwHoPtDx6VQs9Cqio1UfMj9FPNFYiY/B2dY1xUaYO07yfDEktBFMxRdcVZdUHyE0S/joHU3ST9p3vcTjnj5vd05eotvTK8IZ96G2uv/+/Y2DsrCSmctJHPoz6fwrkN9Yn/lAoMp6ZVaylfplAXKl+kb/VyoHL4pHLOUUq2/6Iy7geVjUJl/0xGK48Y53EQJxS89Me6NwWdNy5y6W3RpZg55zyMTuD2AniirR2ucK/g9XwFF5wVeWHcCk5GoYJmKhPCsvu+PWkZOVblSHAjDAiBnXJNUsdDA0458jFNOvFCake61+AopUfE5KFGV5vLE63UqH5JZX3mdpVVvAtaIXp0L7BVrzmI+yKB0ogIQLwY8jgFPuT4icm3EW1RjwV7bGA9VVOiQWar/0O1l9Vpuqi1uXe7YjRSYSA9hiA4P0hfgOEdF4CzbMl0Yq8bIOjlP0uVbdLgF519uMw6NuPMjQpVv1IBhzyB/b+CZGFpjz9dKwh4K7vUhbrTLl3wG0qOYXMGeF1a6q5DbWAV7X7dHmz2tm+C8EqK4mUHIdGnTpYRi3053HjllwGiS34AmQWr3n5QG6PjlppQwMPhJNIAGSRrEioIUvh+cNV5LH3ICt7KBhgOMsc7J/uNRlnnGjSB+A5y6xNRcAG7RHNQ9TaO46PWmxRpFHAshzloMRFBsmMcTL3Pxg
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: push-secret
+      namespace: shipwright-build
+    type: kubernetes.io/dockerconfigjson
+
