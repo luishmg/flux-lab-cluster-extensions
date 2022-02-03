@@ -2,6 +2,7 @@ apiVersion: shipwright.io/v1alpha1
 kind: Build
 metadata:
   name: buildpack-nodejs-build
+  namespace: shipwright-build
 spec:
   source:
     url: https://github.com/shipwright-io/sample-nodejs
