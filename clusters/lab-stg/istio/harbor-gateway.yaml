@@ -2,7 +2,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: gateway-tools-internal
+  name: gateway-harbor-internal
   namespace: istio-system
 spec:
   selector:
@@ -21,6 +21,6 @@ spec:
       protocol: HTTPS
     tls:
       mode: SIMPLE
-      credentialName: gateway-cert-tools-internal
+      credentialName: gateway-cert-harbor-internal
     hosts:
     - "harbor.k8s.stg.lab.internal"

@@ -1,0 +1,26 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gateway-notary-internal
+  namespace: istio-system
+spec:
+  selector:
+    app: istio-ingressgateway-internal
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "notary.k8s.stg.lab.internal"
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: gateway-cert-notary-internal
+    hosts:
+    - "notary.k8s.stg.lab.internal"
