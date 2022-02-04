@@ -188,6 +188,10 @@ kind: ClusterBuildStrategy
 metadata:
   name: buildpacks-v3
 spec:
+  volumes:
+    - name: ca-cert
+      configMap:
+        name: ca-cert
   buildSteps:
     - name: prepare
       image: docker.io/paketobuildpacks/builder:full
@@ -250,6 +254,9 @@ spec:
       volumeMounts:
         - mountPath: /platform/env
           name: platform-env
+        - name: ca-cert
+          mountPath: /usr/local/share/ca-certificates/labasa-ca.pem
+          subPath: labasa-ca.pem
       resources:
         limits:
           cpu: 500m
